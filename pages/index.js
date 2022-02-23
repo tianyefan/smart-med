@@ -1,9 +1,6 @@
 import Head from "next/head";
 import {
   Box,
-  VStack,
-  Image,
-  HStack,
   Text,
   Heading,
   Button,
@@ -27,7 +24,7 @@ export default function Home() {
       marginTop={50}
       flexDir="column"
     >
-      <MedicationIcon sx={{ fontSize: 150, color: "#013B92" }} />
+      <MedicationIcon sx={{ fontSize: 150, color: "#013B92", marginTop: 15 }} />
       <Heading
         color="#013B92"
         marginTop={15}
@@ -54,6 +51,7 @@ export default function Home() {
             w={[220, 250, 300, 350, 400]}
             h={[90, 110, 130, 150]}
             borderRadius={15}
+            marginTop={60}
             bg="gray.100"
             display="flex"
             alignItems="center"
@@ -90,6 +88,7 @@ export default function Home() {
             width={[220, 250, 300, 350, 400]}
             height={[90, 110, 130, 150]}
             borderRadius={15}
+            marginTop={60}
             onClick={() => {
               const input = inputRef.current;
               input.click();
@@ -97,7 +96,7 @@ export default function Home() {
           >
             <UploadIcon sx={{ fontSize: 100 }} />
           </Button>
-          <Text fontFamily="Montserrat Alternates" marginTop={5}>
+          <Text fontFamily="Montserrat Alternates" marginTop={5} color='#fff'>
             Upload Image(png, svg, jpeg)
           </Text>
         </>
