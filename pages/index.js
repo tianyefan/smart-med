@@ -25,7 +25,6 @@ export default function Home() {
       justifyContent="center"
       marginTop={50}
       flexDir="column"
-      overflowY="hidden"
     >
       <MedicationIcon sx={{ fontSize: 150, color: "#013B92" }} />
       <Heading
@@ -49,7 +48,7 @@ export default function Home() {
         }}
       />
       {file ? (
-        <VStack>
+        <>
           <Box
             w={[220, 250, 300, 350, 400]}
             h={[90, 110, 130, 150]}
@@ -83,14 +82,13 @@ export default function Home() {
           >
             Start with AI
           </Button>
-        </VStack>
+        </>
       ) : (
-        <VStack w="100%" h={calc("100%" - 500)} bg="teal">
+        <>
           <Button
             width={[220, 250, 300, 350, 400]}
             height={[90, 110, 130, 150]}
             borderRadius={15}
-            marginTop={[45, 30, 15, 0, -20]}
             onClick={() => {
               const input = inputRef.current;
               input.click();
@@ -101,7 +99,7 @@ export default function Home() {
           <Text fontFamily="Montserrat Alternates" marginTop={5}>
             Upload Image(png, svg, jpeg)
           </Text>
-        </VStack>
+        </>
       )}
     </Box>
   );
