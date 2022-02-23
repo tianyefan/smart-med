@@ -8,7 +8,7 @@ import {
   Heading,
   Button,
   Input,
-  calc,
+  Link,
 } from "@chakra-ui/react";
 import MedicationIcon from "@mui/icons-material/Medication";
 import UploadIcon from "@mui/icons-material/Upload";
@@ -18,6 +18,7 @@ import React from "react";
 export default function Home() {
   const inputRef = React.createRef();
   const [file, setFile] = React.useState(null);
+  const handleClick = () => {};
   return (
     <Box
       display="flex"
@@ -53,13 +54,10 @@ export default function Home() {
             w={[220, 250, 300, 350, 400]}
             h={[90, 110, 130, 150]}
             borderRadius={15}
-            marginTop={[45, 30, 15, 0, -20]}
             bg="gray.100"
             display="flex"
             alignItems="center"
             justifyContent="center"
-            bg="white"
-            border="1px solid black"
           >
             <CheckCircleOutlineIcon
               sx={{ fontSize: 50, color: "green", fontWeight: "bold" }}
@@ -73,15 +71,18 @@ export default function Home() {
               Upload Successfully!
             </Text>
           </Box>
-          <Button
-            fontFamily="Montserrat Alternates"
-            marginTop={7}
-            bg="#000"
-            color="#fff"
-            _hover={{ bg: "gray" }}
-          >
-            Start with AI
-          </Button>
+          <Link href="/result">
+            <Button
+              fontFamily="Montserrat Alternates"
+              marginTop={7}
+              bg="#000"
+              color="#fff"
+              _hover={{ bg: "gray" }}
+              onClick={handleClick}
+            >
+              Start with AI
+            </Button>
+          </Link>
         </>
       ) : (
         <>
