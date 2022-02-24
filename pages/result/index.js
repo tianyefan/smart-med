@@ -35,51 +35,43 @@ function Result() {
         justifyContent="center"
         flexDir="column"
       >
-        <Text
-          fontFamily="Montserrat Alternates"
-          fontSize={[18,20,25,30,35]}
-          bg="#98F4E4"
-          w={[400,450,500,550,600]}
-          textAlign="center"
-          h={[45,50,55,58,65]}
-          borderRadius={10}
-          marginTop={10}
-        >
+        <Box display="flex" alignItems="center" justifyContent="center" marginTop={20}>
           <CheckCircleOutlineIcon
-            sx={{ fontSize: 30, color: "green", marginRight: 10 }}
+            sx={{ fontSize: 50, color: "green", marginTop: 5, marginRight: 3 }}
           />
-          Training Model...
-        </Text>
-        <Text
-          fontFamily="Montserrat Alternates"
-          fontSize={[18,20,25,30,35]}
-          bg="#98F4E4"
-          w={[400,450,500,550,600]}
-          textAlign="center"
-          h={[45,50,55,58,65]}
-          borderRadius={10}
-          marginTop={10}
-        >
+          <Text
+            fontFamily="Montserrat Alternates"
+            fontSize={[18, 20, 25, 30, 35]}
+            bg="#98F4E4"
+            w={[350, 400, 450, 500, 550]}
+            textAlign="center"
+            h={[45, 50, 55, 58, 65]}
+            borderRadius={10}
+            marginTop={10}
+            border='3px solid teal'
+          >
+            Analysing Image...
+          </Text>
+        </Box>
+
+        <Box display="flex" alignItems="center" justifyContent="center">
           <CheckCircleOutlineIcon
-            sx={{ fontSize: 30, color: "green", marginRight: 5 }}
+            sx={{ fontSize: 50, color: "green", marginTop: 5, marginRight: 3 }}
           />
-          Analysing Image...
-        </Text>
-        <Text
-          fontFamily="Montserrat Alternates"
-          fontSize={[18,20,25,30,35]}
-          bg="#98F4E4"
-          w={[400,450,500,550,600]}
-          textAlign="center"
-          h={[45,50,55,58,65]}
-          borderRadius={10}
-          marginTop={10}
-        >
-          <CheckCircleOutlineIcon
-            sx={{ fontSize: 30, color: "green", marginRight: 25 }}
-          />
-          All Done...
-        </Text>
+          <Text
+            fontFamily="Montserrat Alternates"
+            fontSize={[18, 20, 25, 30, 35]}
+            bg="#98F4E4"
+            w={[350, 400, 450, 500, 550]}
+            textAlign="center"
+            h={[45, 50, 55, 58, 65]}
+            borderRadius={10}
+            marginTop={10}
+            border='3px solid teal'
+          >
+            All Done...
+          </Text>
+        </Box>
       </Box>
       <Box
         display="flex"
@@ -88,30 +80,33 @@ function Result() {
         flexDir="column"
         marginTop={40}
       >
-        <Link
-          href="/chat"
-        >
+        <Link href="/chat">
           <Button
-            w={[300,350,400,450,500]}
-            h={[75,90,100,120,140]}
+            w={[300, 350, 400, 450, 500]}
+            h={[75, 90, 100, 120, 140]}
             fontFamily="Montserrat Alternates"
             bg="#000"
             color="#fff"
             _hover={{ bg: "gray" }}
-            fontSize={[18,21,24,27,30]}
-            borderRadius={[10,15,20,25,30]}
+            fontSize={[18, 21, 24, 27, 30]}
+            borderRadius={[10, 15, 20, 25, 30]}
           >
             Talk with AI for details.
             <LiveHelpIcon sx={{ fontSize: 45 }} />
           </Button>
         </Link>
 
-        <Button marginTop={20} w={[150,180,200]} h={[50,55,70]} borderRadius={[10,12,15]}>
+        <Button
+          marginTop={20}
+          w={[150, 180, 200]}
+          h={[50, 55, 70]}
+          borderRadius={[10, 12, 15]}
+        >
           <DownloadForOfflineIcon sx={{ fontSize: 50 }} />
         </Button>
         <Text
           fontFamily="Montserrat Alternates"
-          fontSize={[12,15,18]}
+          fontSize={[12, 15, 18]}
           marginTop={3}
           color="#fff"
         >
