@@ -1,21 +1,83 @@
-import Head from "next/head";
-import {
-  Box,
-  Text,
-  Heading,
-  Button,
-  Input,
-  Link,
-} from "@chakra-ui/react";
+import { Box, Text, Heading, Button, Input } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import MedicationIcon from "@mui/icons-material/Medication";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import React from "react";
+import axios from "axios";
+import { storage } from "../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export default function Home() {
   const inputRef = React.createRef();
-  const [file, setFile] = React.useState(null);
-  const handleClick = () => {};
+  const router = useRouter();
+  const [uploadSuccess, setUploadSuccess] = React.useState(false);
+  const [imageUrl, setImageUrl] = React.useState("");
+
+  const handleChange = (e) => {
+    const selectedFile = e.target.files[0];
+
+    const storageRef = ref(storage, `images/${selectedFile.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, selectedFile);
+
+    // Listen for state changes, errors, and completion of the upload.
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+        }
+      },
+      (error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case "storage/unauthorized":
+            // User doesn't have permission to access the object
+            break;
+          case "storage/canceled":
+            // User canceled the upload
+            break;
+
+          // ...
+
+          case "storage/unknown":
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
+      },
+      () => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log("File available at", downloadURL);
+          setImageUrl(downloadURL);
+          setUploadSuccess(true);
+        });
+      }
+    );
+  };
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    await axios
+      .post("http://127.0.0.1:5000/api/images", {
+        name: "another pic",
+        url: "anotherpic.url",
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    router.push("/result");
+  };
+
   return (
     <Box
       display="flex"
@@ -40,18 +102,15 @@ export default function Home() {
         type="file"
         display="none"
         ref={inputRef}
-        onChange={(e) => {
-          setFile(e.target.files[0]);
-          console.log(file);
-        }}
+        onChange={handleChange}
       />
-      {file ? (
+      {uploadSuccess ? (
         <>
           <Box
             w={[220, 250, 300, 350, 400]}
             h={[90, 110, 130, 150]}
             borderRadius={15}
-            marginTop={60}
+            marginTop={40}
             bg="gray.100"
             display="flex"
             alignItems="center"
@@ -69,18 +128,17 @@ export default function Home() {
               Upload Successfully!
             </Text>
           </Box>
-          <Link href="/result">
-            <Button
-              fontFamily="Montserrat Alternates"
-              marginTop={7}
-              bg="#000"
-              color="#fff"
-              _hover={{ bg: "gray" }}
-              onClick={handleClick}
-            >
-              Start with AI
-            </Button>
-          </Link>
+
+          <Button
+            fontFamily="Montserrat Alternates"
+            marginTop={7}
+            bg="#000"
+            color="#fff"
+            _hover={{ bg: "gray" }}
+            onClick={handleClick}
+          >
+            Start with AI
+          </Button>
         </>
       ) : (
         <>
@@ -88,7 +146,7 @@ export default function Home() {
             width={[220, 250, 300, 350, 400]}
             height={[90, 110, 130, 150]}
             borderRadius={15}
-            marginTop={60}
+            marginTop={40}
             onClick={() => {
               const input = inputRef.current;
               input.click();
@@ -96,7 +154,7 @@ export default function Home() {
           >
             <UploadIcon sx={{ fontSize: 100 }} />
           </Button>
-          <Text fontFamily="Montserrat Alternates" marginTop={5} color='#fff'>
+          <Text fontFamily="Montserrat Alternates" marginTop={5} color="#fff">
             Upload Image(png, svg, jpeg)
           </Text>
         </>
