@@ -145,6 +145,7 @@ export default function Home() {
             color="#fff"
             _hover={{ bg: "gray" }}
             onClick={handleClick}
+            disabled={spin}
           >
             Start with AI
           </Button>
