@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import ScrollableFeed from "react-scrollable-feed";
 import styles from "../../styles/Chat.module.css";
-
+import axios from "axios";
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 const exampleText = [
   "We make predications based on your image provided.",
   "the result should be in 1 min",
@@ -14,15 +15,46 @@ const exampleText = [
 ];
 
 const UserInput = (props) => {
-  const handleClick = (e) => {
-    props.setAllMsgs([...props.allmsgs, props.newMsg]);
-    props.setNewMsg("");
+  const handleClick = async (e) => {
+    e.preventDefault();
+    
+    //props.setNewMsg("");
+    const pos = localStorage.getItem("pos");
+    const neg = localStorage.getItem("neg");
+
+    await axios
+      .post("http://127.0.0.1:5000/api/chat", {
+        msg: props.newMsg,
+        pos: pos,
+        neg: neg,
+      })
+      .then((res) => {
+        console.log(res.data.reply);
+        props.setAllMsgs([...props.allmsgs, props.newMsg, res.data.reply]);
+        props.setNewMsg("");
+      })
+      .catch((err) => console.log(err));
   };
 
-  const hanldeKey = (e) => {
+  const hanldeKey = async (e) => {
     if (e.key === "Enter" && props.newMsg) {
-      props.setAllMsgs([...props.allmsgs, props.newMsg]);
-      props.setNewMsg("");
+      //props.setAllMsgs([...props.allmsgs, props.newMsg]);
+      //props.setNewMsg("");
+      const pos = localStorage.getItem("pos");
+      const neg = localStorage.getItem("neg");
+
+      await axios
+        .post("http://127.0.0.1:5000/api/chat", {
+          msg: props.newMsg,
+          pos: pos,
+          neg: neg,
+        })
+        .then((res) => {
+          console.log(res.data.reply);
+          props.setAllMsgs([...props.allmsgs, props.newMsg,res.data.reply]);
+          props.setNewMsg("");
+        })
+        .catch((err) => console.log(err));
     }
   };
 
@@ -67,13 +99,14 @@ const ChatFeed = (props) => {
     <ScrollableFeed>
       {props.allmsgs.map((text, i) => (
         <Box
-          mx={i % 2 == 0 ? ["5vw", "10vw", "15vw"] : ["55vw", "60vw", "65vw"]}
+          mx={i % 2 == 1 ? ["5vw", "10vw", "15vw"] : ["55vw", "60vw", "65vw"]}
           key={i}
         >
+          {i % 2 == 1 && <SmartToyIcon />}
           <Text
             key={i}
-            textAlign={i % 2 == 0 ? "right" : "left"}
-            bg={i % 2 == 0 ? "gray.400" : "green.400"}
+            textAlign={i % 2 == 1 ? "right" : "left"}
+            bg={i % 2 == 1 ? "gray.500" : "green.500"}
             my="1rem"
             px="1rem"
             py="1rem"
@@ -91,7 +124,7 @@ const ChatFeed = (props) => {
 };
 
 function Chat() {
-  const [allmsgs, setAllMsgs] = useState(exampleText);
+  const [allmsgs, setAllMsgs] = useState([]);
   const [newMsg, setNewMsg] = useState("");
 
   return (
