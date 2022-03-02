@@ -1,4 +1,4 @@
-import { Box, Text, Heading, Button, Input } from "@chakra-ui/react";
+import { Box, Text, Heading, Button, Input, Spinner } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import MedicationIcon from "@mui/icons-material/Medication";
 import UploadIcon from "@mui/icons-material/Upload";
@@ -12,6 +12,7 @@ export default function Home() {
   const inputRef = React.createRef();
   const router = useRouter();
   const [uploadSuccess, setUploadSuccess] = React.useState(false);
+  const [spin, setSpin] = React.useState(false);
   const [imageUrl, setImageUrl] = React.useState("");
 
   const handleChange = (e) => {
@@ -68,13 +69,21 @@ export default function Home() {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    setSpin(true);
     await axios
       .post("http://127.0.0.1:5000/api/images", {
-        name: "another pic",
-        url: "anotherpic.url",
+        name: "image",
+        url: imageUrl,
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res.data)
+        //pos_val = Math.round(parseFloat(res.data.pos) * 100)
+        //neg_val = Math.round(parseFloat(res.data.neg) * 100)
+        localStorage.setItem('neg', res.data.neg)
+        localStorage.setItem('pos', res.data.pos)
+      })
       .catch((err) => console.log(err));
+    setSpin(false)
     router.push("/result");
   };
 
@@ -139,6 +148,21 @@ export default function Home() {
           >
             Start with AI
           </Button>
+          {spin && (
+            <>
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+              my={5}
+            />
+            <Text fontFamily='Montserrat Alternates' color='#fff'>
+                We are trying hard to make prediction...
+            </Text>
+            </>
+          )}
         </>
       ) : (
         <>

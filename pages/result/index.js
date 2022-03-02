@@ -3,6 +3,7 @@ import MedicationIcon from "@mui/icons-material/Medication";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
+import { CheckCircleIcon } from "@chakra-ui/icons";
 import {
   Box,
   Text,
@@ -14,6 +15,16 @@ import {
 } from "@chakra-ui/react";
 
 function Result() {
+  const pos = localStorage.getItem("pos");
+  const neg = localStorage.getItem("neg");
+  //console.log('pos val: ' + pos)
+  //console.log('neg val: ' + neg)
+  //pos_val = Math.round(parseFloat(res.data.pos) * 100)
+  //neg_val = Math.round(parseFloat(res.data.neg) * 100)
+  const pos_val = Math.round(parseFloat(pos) * 100);
+  const neg_val = Math.round(parseFloat(neg) * 100);
+  console.log("pos :" + pos_val.toString());
+  console.log("neg :" + neg_val.toString());
   return (
     <>
       <Box
@@ -23,63 +34,53 @@ function Result() {
         marginBottom={15}
       >
         <MedicationIcon
-          sx={{ fontSize: 50, color: "#013B92", marginRight: 3 }}
+          sx={{ fontSize: 80, color: "#013B92", marginRight: 3 }}
         />
-        <Text fontSize={18} fontFamily="Montserrat" color="#013B92">
+        <Text fontSize={26} fontFamily="Montserrat" color="#013B92">
           Smart Med
         </Text>
       </Box>
+
       <Box
         display="flex"
         alignItems="center"
         justifyContent="center"
         flexDir="column"
+        marginTop={30}
       >
-        <Box display="flex" alignItems="center" justifyContent="center" marginTop={20}>
-          <CheckCircleOutlineIcon
-            sx={{ fontSize: 50, color: "green", marginTop: 5, marginRight: 3 }}
-          />
+        <CheckCircleIcon w={40} h={40} my={15} color="green.300" />
+        <Text
+          fontFamily="Montserrat Alternates"
+          fontSize={[18, 20, 25, 30, 35]}
+          textAlign="center"
+          h={[45, 50, 55, 58, 65]}
+          my={10}
+        >
+          Congrates. All Done...
+        </Text>
+
+        <Box
+          bg="#FFE5CC"
+          my="3em"
+          py="3em"
+          px={["2em", "2.5em", "3em"]}
+          borderRadius={[12, 16, 20]}
+          border="3px solid #FF6666"
+        >
           <Text
+            fontSize={[12, 16, 20, 24]}
             fontFamily="Montserrat Alternates"
-            fontSize={[18, 20, 25, 30, 35]}
-            bg="#98F4E4"
-            w={[350, 400, 450, 500, 550]}
-            textAlign="center"
-            h={[45, 50, 55, 58, 65]}
-            borderRadius={10}
-            marginTop={10}
-            border='3px solid teal'
+            fontWeight="bold"
           >
-            Analysing Image...
+            Based on our AI model, we think you have:
+            <br />
+            <br />
+            Probablity of getting Breast Cancer: {pos_val} %
+            <br />
+            Probalility of not getting Breast Cancer: {neg_val} %
           </Text>
         </Box>
 
-        <Box display="flex" alignItems="center" justifyContent="center">
-          <CheckCircleOutlineIcon
-            sx={{ fontSize: 50, color: "green", marginTop: 5, marginRight: 3 }}
-          />
-          <Text
-            fontFamily="Montserrat Alternates"
-            fontSize={[18, 20, 25, 30, 35]}
-            bg="#98F4E4"
-            w={[350, 400, 450, 500, 550]}
-            textAlign="center"
-            h={[45, 50, 55, 58, 65]}
-            borderRadius={10}
-            marginTop={10}
-            border='3px solid teal'
-          >
-            All Done...
-          </Text>
-        </Box>
-      </Box>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        flexDir="column"
-        marginTop={40}
-      >
         <Link href="/chat">
           <Button
             w={[300, 350, 400, 450, 500]}
@@ -95,23 +96,6 @@ function Result() {
             <LiveHelpIcon sx={{ fontSize: 45 }} />
           </Button>
         </Link>
-
-        <Button
-          marginTop={20}
-          w={[150, 180, 200]}
-          h={[50, 55, 70]}
-          borderRadius={[10, 12, 15]}
-        >
-          <DownloadForOfflineIcon sx={{ fontSize: 50 }} />
-        </Button>
-        <Text
-          fontFamily="Montserrat Alternates"
-          fontSize={[12, 15, 18]}
-          marginTop={3}
-          color="#fff"
-        >
-          Download Result
-        </Text>
       </Box>
     </>
   );
