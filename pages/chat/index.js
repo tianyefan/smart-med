@@ -5,15 +5,10 @@ import ScrollableFeed from "react-scrollable-feed";
 import styles from "../../styles/Chat.module.css";
 import axios from "axios";
 import SmartToyIcon from '@mui/icons-material/SmartToy';
-const exampleText = [
-  "We make predications based on your image provided.",
-  "the result should be in 1 min",
-  "Hi there.",
-  "We have thousands of classified images of this type of cancer in our database",
-  "No problem",
-  "See you soon",
-];
+import { motion } from "framer-motion";
 
+const MotionBox = motion(Box)
+const MotionButton = motion(Button)
 const UserInput = (props) => {
   const handleClick = async (e) => {
     e.preventDefault();
@@ -68,6 +63,7 @@ const UserInput = (props) => {
       bg="gray.200"
       w="100vw"
       py="0.5rem"
+      opacity={0.5}
     >
       <Input
         type="text"
@@ -82,14 +78,15 @@ const UserInput = (props) => {
         value={props.newMsg}
         onKeyDown={hanldeKey}
       />
-      <Button
+      <MotionButton
         bg="#000"
         color="#fff"
         _hover={{ bg: "gray.500" }}
         onClick={handleClick}
+        whileHover={{ scale: 1.2 }}
       >
         Send
-      </Button>
+      </MotionButton>
     </Box>
   );
 };
@@ -98,9 +95,12 @@ const ChatFeed = (props) => {
   return (
     <ScrollableFeed>
       {props.allmsgs.map((text, i) => (
-        <Box
+        <MotionBox
           mx={i % 2 == 1 ? ["5vw", "10vw", "15vw"] : ["55vw", "60vw", "65vw"]}
           key={i}
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          transition={{ duration: 0.75}}
         >
           {i % 2 == 1 && <SmartToyIcon />}
           <Text
@@ -117,7 +117,7 @@ const ChatFeed = (props) => {
           >
             {text}
           </Text>
-        </Box>
+        </MotionBox>
       ))}
     </ScrollableFeed>
   );

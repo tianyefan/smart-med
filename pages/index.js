@@ -7,6 +7,12 @@ import React from "react";
 import axios from "axios";
 import { storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import SportsVolleyballIcon from "@mui/icons-material/SportsVolleyball";
+import { motion } from "framer-motion";
+
+const MotionBox = motion(Box);
+const MotionButton = motion(Button);
+const MotionIcon = motion(SportsVolleyballIcon);
 
 export default function Home() {
   const inputRef = React.createRef();
@@ -76,14 +82,14 @@ export default function Home() {
         url: imageUrl,
       })
       .then((res) => {
-        console.log(res.data)
+        console.log(res.data);
         //pos_val = Math.round(parseFloat(res.data.pos) * 100)
         //neg_val = Math.round(parseFloat(res.data.neg) * 100)
-        localStorage.setItem('neg', res.data.neg)
-        localStorage.setItem('pos', res.data.pos)
+        localStorage.setItem("neg", res.data.neg);
+        localStorage.setItem("pos", res.data.pos);
       })
       .catch((err) => console.log(err));
-    setSpin(false)
+    setSpin(false);
     router.push("/result");
   };
 
@@ -115,7 +121,7 @@ export default function Home() {
       />
       {uploadSuccess ? (
         <>
-          <Box
+          <MotionBox
             w={[220, 250, 300, 350, 400]}
             h={[90, 110, 130, 150]}
             borderRadius={15}
@@ -124,6 +130,9 @@ export default function Home() {
             display="flex"
             alignItems="center"
             justifyContent="center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.75 }}
           >
             <CheckCircleOutlineIcon
               sx={{ fontSize: 50, color: "green", fontWeight: "bold" }}
@@ -136,9 +145,9 @@ export default function Home() {
             >
               Upload Successfully!
             </Text>
-          </Box>
+          </MotionBox>
 
-          <Button
+          <MotionButton
             fontFamily="Montserrat Alternates"
             marginTop={7}
             bg="#000"
@@ -146,28 +155,36 @@ export default function Home() {
             _hover={{ bg: "gray" }}
             onClick={handleClick}
             disabled={spin}
+            whileHover={{ scale: 1.2 }}
           >
             Start with AI
-          </Button>
+          </MotionButton>
           {spin && (
             <>
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="gray.200"
-              color="blue.500"
-              size="xl"
-              my={5}
-            />
-            <Text fontFamily='Montserrat Alternates' color='#fff'>
-                We are trying hard to make prediction...
-            </Text>
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+                my={5}
+              />
+              <Text fontFamily="Montserrat Alternates" color="#fff">
+                We are trying hard to make prediction
+                <motion.span
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ repeat: Infinity, duration: 1 }}
+                >
+                  ...
+                </motion.span>
+              </Text>
             </>
           )}
         </>
       ) : (
         <>
-          <Button
+          <MotionButton
             width={[220, 250, 300, 350, 400]}
             height={[90, 110, 130, 150]}
             borderRadius={15}
@@ -176,9 +193,10 @@ export default function Home() {
               const input = inputRef.current;
               input.click();
             }}
+            whileHover={{ scale: 1.1, marginBottom: 15 }}
           >
             <UploadIcon sx={{ fontSize: 100 }} />
-          </Button>
+          </MotionButton>
           <Text fontFamily="Montserrat Alternates" marginTop={5} color="#fff">
             Upload Image(png, svg, jpeg)
           </Text>

@@ -13,6 +13,10 @@ import {
   Link,
   Image,
 } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+
+const MotionIcon = motion(CheckCircleIcon);
+const MotionButton = motion(Button)
 
 function Result() {
   const pos = localStorage.getItem("pos");
@@ -48,7 +52,14 @@ function Result() {
         flexDir="column"
         marginTop={30}
       >
-        <CheckCircleIcon w={40} h={40} my={15} color="green.300" />
+        <MotionIcon
+          w={40}
+          h={40}
+          color="green.300"
+          initial={{ marginTop: -50, marginBottom: -50 }}
+          animate={{ marginTop: 15, marginBottom: 15 }}
+          transition={{ duration: 1.5}}
+        />
         <Text
           fontFamily="Montserrat Alternates"
           fontSize={[18, 20, 25, 30, 35]}
@@ -82,7 +93,7 @@ function Result() {
         </Box>
 
         <Link href="/chat">
-          <Button
+          <MotionButton
             w={[300, 350, 400, 450, 500]}
             h={[75, 90, 100, 120, 140]}
             fontFamily="Montserrat Alternates"
@@ -91,10 +102,11 @@ function Result() {
             _hover={{ bg: "gray" }}
             fontSize={[18, 21, 24, 27, 30]}
             borderRadius={[10, 15, 20, 25, 30]}
+            whileHover={{ scale: 1.1}}
           >
             Talk with AI for details.
             <LiveHelpIcon sx={{ fontSize: 45 }} />
-          </Button>
+          </MotionButton>
         </Link>
       </Box>
     </>
