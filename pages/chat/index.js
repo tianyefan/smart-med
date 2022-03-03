@@ -1,18 +1,17 @@
 import { Box, Button, Input, Text, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
-import SendIcon from "@mui/icons-material/Send";
 import ScrollableFeed from "react-scrollable-feed";
 import styles from "../../styles/Chat.module.css";
 import axios from "axios";
-import SmartToyIcon from '@mui/icons-material/SmartToy';
+import SmartToyIcon from "@mui/icons-material/SmartToy";
 import { motion } from "framer-motion";
 
-const MotionBox = motion(Box)
-const MotionButton = motion(Button)
+const MotionBox = motion(Box);
+const MotionButton = motion(Button);
 const UserInput = (props) => {
   const handleClick = async (e) => {
     e.preventDefault();
-    
+
     //props.setNewMsg("");
     const pos = localStorage.getItem("pos");
     const neg = localStorage.getItem("neg");
@@ -46,7 +45,7 @@ const UserInput = (props) => {
         })
         .then((res) => {
           console.log(res.data.reply);
-          props.setAllMsgs([...props.allmsgs, props.newMsg,res.data.reply]);
+          props.setAllMsgs([...props.allmsgs, props.newMsg, res.data.reply]);
           props.setNewMsg("");
         })
         .catch((err) => console.log(err));
@@ -63,7 +62,7 @@ const UserInput = (props) => {
       bg="gray.200"
       w="100vw"
       py="0.5rem"
-      opacity={0.5}
+      opacity={0.65}
     >
       <Input
         type="text"
@@ -77,6 +76,7 @@ const UserInput = (props) => {
         onChange={(e) => props.setNewMsg(e.target.value)}
         value={props.newMsg}
         onKeyDown={hanldeKey}
+        _focus={{ opacity: 1 }}
       />
       <MotionButton
         bg="#000"
@@ -98,9 +98,10 @@ const ChatFeed = (props) => {
         <MotionBox
           mx={i % 2 == 1 ? ["5vw", "10vw", "15vw"] : ["55vw", "60vw", "65vw"]}
           key={i}
-          initial={{opacity: 0}}
-          animate={{opacity: 1}}
-          transition={{ duration: 0.75}}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.75 }}
+          whileHover={{ scale: 1.1 }}
         >
           {i % 2 == 1 && <SmartToyIcon />}
           <Text

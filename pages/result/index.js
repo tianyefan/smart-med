@@ -1,7 +1,5 @@
 import React from "react";
 import MedicationIcon from "@mui/icons-material/Medication";
-import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import {
@@ -16,7 +14,8 @@ import {
 import { motion } from "framer-motion";
 
 const MotionIcon = motion(CheckCircleIcon);
-const MotionButton = motion(Button)
+const MotionButton = motion(Button);
+const MotionBox = motion(Box);
 
 function Result() {
   const pos = localStorage.getItem("pos");
@@ -58,7 +57,7 @@ function Result() {
           color="green.300"
           initial={{ marginTop: -50, marginBottom: -50 }}
           animate={{ marginTop: 15, marginBottom: 15 }}
-          transition={{ duration: 1.5}}
+          transition={{ duration: 1.5 }}
         />
         <Text
           fontFamily="Montserrat Alternates"
@@ -70,29 +69,31 @@ function Result() {
           Congrates. All Done...
         </Text>
 
-        <Box
+        <MotionBox
           bg="#FFE5CC"
           my="3em"
           py="3em"
           px={["2em", "2.5em", "3em"]}
           borderRadius={[12, 16, 20]}
           border="3px solid #FF6666"
+          whileHover={{ scale: 1.2 }}
         >
           <Text
             fontSize={[12, 16, 20, 24]}
-            fontFamily="Montserrat Alternates"
+            fontFamily="Montserrat"
             fontWeight="bold"
           >
             Based on our AI model, we think you have:
             <br />
             <br />
-            Probablity of getting Breast Cancer: {pos_val} %
+            Probability of getting Breast Cancer: {pos_val} %
             <br />
-            Probalility of not getting Breast Cancer: {neg_val} %
+            Probability of <motion.span>NOT</motion.span> getting Breast Cancer:{" "}
+            {neg_val} %
           </Text>
-        </Box>
+        </MotionBox>
 
-        <Link href="/chat">
+        <Link href="/chat" textDecoration="none">
           <MotionButton
             w={[300, 350, 400, 450, 500]}
             h={[75, 90, 100, 120, 140]}
@@ -102,7 +103,7 @@ function Result() {
             _hover={{ bg: "gray" }}
             fontSize={[18, 21, 24, 27, 30]}
             borderRadius={[10, 15, 20, 25, 30]}
-            whileHover={{ scale: 1.1}}
+            whileHover={{ scale: 1.1 }}
           >
             Talk with AI for details.
             <LiveHelpIcon sx={{ fontSize: 45 }} />

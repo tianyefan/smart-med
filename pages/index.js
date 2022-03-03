@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 
 const MotionBox = motion(Box);
 const MotionButton = motion(Button);
-const MotionIcon = motion(SportsVolleyballIcon);
+const MotionIcon = motion(MedicationIcon);
 
 export default function Home() {
   const inputRef = React.createRef();
@@ -101,7 +101,10 @@ export default function Home() {
       marginTop={50}
       flexDir="column"
     >
-      <MedicationIcon sx={{ fontSize: 150, color: "#013B92", marginTop: 15 }} />
+      <MotionIcon
+        sx={{ fontSize: 150, color: "#013B92", marginTop: 15, cursor: 'pointer' }}
+        whileHover={{ color: "black", scale: 1.2, rotate: 180, marginBottom: '2rem'}}
+      />
       <Heading
         color="#013B92"
         marginTop={15}
@@ -194,6 +197,7 @@ export default function Home() {
               input.click();
             }}
             whileHover={{ scale: 1.1, marginBottom: 15 }}
+            _hover={{ bg: "gray.400" }}
           >
             <UploadIcon sx={{ fontSize: 100 }} />
           </MotionButton>
