@@ -102,8 +102,20 @@ export default function Home() {
       flexDir="column"
     >
       <MotionIcon
-        sx={{ fontSize: 150, color: "#013B92", marginTop: 15, cursor: 'pointer' }}
-        whileHover={{ color: "black", scale: 1.2, rotate: 180, marginBottom: '2rem'}}
+        sx={{
+          fontSize: 150,
+          color: "#013B92",
+          marginTop: 15,
+          cursor: "pointer",
+        }}
+        animate={{ rotate: 360 }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          delay: 1,
+          repeatDelay: 1,
+          ease: 'easeInOut'
+        }}
       />
       <Heading
         color="#013B92"
@@ -135,7 +147,7 @@ export default function Home() {
             justifyContent="center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.75 }}
+            transition={{ duration: 1, ease: "easeInOut" }}
           >
             <CheckCircleOutlineIcon
               sx={{ fontSize: 50, color: "green", fontWeight: "bold" }}
@@ -177,7 +189,12 @@ export default function Home() {
                 <motion.span
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ repeat: Infinity, duration: 1 }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 1,
+                    repeatDelay: 1,
+                    ease: "easeInOut",
+                  }}
                 >
                   ...
                 </motion.span>
@@ -202,7 +219,7 @@ export default function Home() {
             <UploadIcon sx={{ fontSize: 100 }} />
           </MotionButton>
           <Text fontFamily="Montserrat Alternates" marginTop={5} color="#fff">
-            Upload Image(png, svg, jpeg)
+            Upload Image(png, jpg, jpeg)
           </Text>
         </>
       )}
