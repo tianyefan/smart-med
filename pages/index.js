@@ -7,7 +7,6 @@ import React from "react";
 import axios from "axios";
 import { storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import SportsVolleyballIcon from "@mui/icons-material/SportsVolleyball";
 import { motion } from "framer-motion";
 
 const MotionBox = motion(Box);
@@ -213,7 +212,7 @@ export default function Home() {
               const input = inputRef.current;
               input.click();
             }}
-            whileHover={{ scale: 1.1, marginBottom: 15 }}
+            whileHover={{ scale: 1.2, marginBottom: 15 }}
             _hover={{ bg: "gray.400" }}
           >
             <UploadIcon sx={{ fontSize: 100 }} />

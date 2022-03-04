@@ -1,4 +1,4 @@
-import { Box, Button, Input, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import ScrollableFeed from "react-scrollable-feed";
 import styles from "../../styles/Chat.module.css";

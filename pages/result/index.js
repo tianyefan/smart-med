@@ -2,15 +2,7 @@ import React from "react";
 import MedicationIcon from "@mui/icons-material/Medication";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { CheckCircleIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  Text,
-  Heading,
-  Button,
-  Input,
-  Link,
-  Image,
-} from "@chakra-ui/react";
+import { Box, Text, Button, Link } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
 const MotionIcon = motion(CheckCircleIcon);
@@ -74,7 +66,7 @@ function Result() {
           my="3em"
           py="3em"
           px={["2em", "2.5em", "3em"]}
-          borderRadius={[12, 16, 20]}
+          borderRadius={[15, 18, 20]}
           border="3px solid #FF6666"
           whileHover={{ scale: 1.2 }}
         >
@@ -95,17 +87,17 @@ function Result() {
 
         <Link href="/chat" textDecoration="none">
           <MotionButton
-            w={[300, 350, 400, 450, 500]}
+            w={[200, 250, 300, 350, 400]}
             h={[75, 90, 100, 120, 140]}
             fontFamily="Montserrat Alternates"
             bg="#000"
             color="#fff"
             _hover={{ bg: "gray" }}
             fontSize={[18, 21, 24, 27, 30]}
-            borderRadius={[10, 15, 20, 25, 30]}
+            borderRadius={[15, 20, 25, 30]}
             whileHover={{ scale: 1.1 }}
           >
-            Talk with AI for details.
+            Talk with AI
             <LiveHelpIcon sx={{ fontSize: 45 }} />
           </MotionButton>
         </Link>
