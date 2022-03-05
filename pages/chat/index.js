@@ -4,7 +4,9 @@ import ScrollableFeed from "react-scrollable-feed";
 import styles from "../../styles/Chat.module.css";
 import axios from "axios";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
+import MedicationIcon from "@mui/icons-material/Medication";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const MotionBox = motion(Box);
 const MotionButton = motion(Button);
@@ -94,6 +96,22 @@ const UserInput = (props) => {
 const ChatFeed = (props) => {
   return (
     <ScrollableFeed>
+      <Box
+        alignItems="center"
+        display="flex"
+        justifyContent="center"
+        marginBottom={15}
+      >
+        <Link href='/'>
+          <MedicationIcon
+            sx={{ fontSize: 80, color: "#013B92", marginRight: 3, cursor: 'pointer' }}
+          />
+        </Link>
+
+        <Text fontSize={26} fontFamily="Montserrat" color="#013B92">
+          Smart Med
+        </Text>
+      </Box>
       {props.allmsgs.map((text, i) => (
         <MotionBox
           mx={i % 2 == 1 ? ["5vw", "10vw", "15vw"] : ["55vw", "60vw", "65vw"]}

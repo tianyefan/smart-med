@@ -28,9 +28,12 @@ function Result() {
         justifyContent="center"
         marginBottom={15}
       >
-        <MedicationIcon
-          sx={{ fontSize: 80, color: "#013B92", marginRight: 3 }}
-        />
+        <Link href='/'>
+          <MedicationIcon
+            sx={{ fontSize: 80, color: "#013B92", marginRight: 3, cursor: 'pointer' }}
+          />
+        </Link>
+
         <Text fontSize={26} fontFamily="Montserrat" color="#013B92">
           Smart Med
         </Text>
